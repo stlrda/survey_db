@@ -1,0 +1,48 @@
+
+Table survey {
+  survey_id int [pk]
+  survey_name varchar
+  organization_id int [ref: - organization.organization_id]
+  project_manager_id int [ref: - person.person_id]
+}
+
+Table person {
+  person_id int [pk]
+  name varchar
+  email varchar
+}
+
+Table question {
+  question_id int [pk]
+  question varchar
+}
+
+Table answer {
+  answer_id int [pk]
+  answer  varchar
+}
+
+Table response {
+  response_id int [pk]
+  question_id int [ref: - question.question_id]
+  answer_id int [ref: - answer.answer_id]
+  survey_id int [ref: < survey.survey_id]
+  person_id int [ref: - person.person_id]
+}
+
+Table organization {
+  organization_id int [pk]
+  organization varchar
+}
+
+//Mapping Tables
+
+Table question_survey_map {
+  survey_id int [ref: < survey.survey_id]
+  question_id int [ref: < question.question_id]
+}
+
+Table answer_question_map {
+  answer_id int [ref: < answer.answer_id]
+  question_id int [ref: < question.question_id]
+}
